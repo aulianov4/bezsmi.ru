@@ -1,0 +1,20 @@
+name: Deploy WordPress
+
+on:
+  push:
+    branches: [ main ]
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Deploy via SSH
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: 91.218.228.175
+          username: mercury4
+          key: ${{ secrets.SERVER_SSH_KEY }}
+          script: |
+            cd /var/www/bezsmi.ru
+            git pull origin main
